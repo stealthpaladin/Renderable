@@ -7,39 +7,49 @@ require_once(__DIR__ . '/../Render.php');
 $ApproachDisplayUnit = array();
 $ApproachDisplayUnit['User']['Browser'] = new renderable('ul');
 
-class WizardInterface extends renderable
+class UserInterface extends renderable
 {
-	public $InterfaceLayout;
-	public 	$InterfaceHeader;
-	public 		$InterfaceTitlebar;
-	public 	$InterfaceContent;
-	public 	$InterfaceFooter;
-	public 		$CancelButton;
-	public 		$BackButton;
-	public 		$NextButton;
-	public 		$FinishButton;
+	public $Layout;
+	public $Header; 	//in layout
+	public $Titlebar; 	//in header
+	public $Content;	//in layout
+	public $Footer;	//in layout
 	
-	WizardInterface()
+	UserInterface()
 	{
-		$this->tag='ul'; 
-		$this->classes=array('Wizard, Interface');
-		$this->children[]			= $InterfaceLayout 	= new renderable('li','',	array('classes'=>'InterfaceLayout') );
+		$this->tag				= 'ul'; 
+		$this->classes[]			= 'Interface';
+		$this->children[]			= $this->Layout 	= new renderable('li','',	array('classes'=>'Layout') );
 
-		$InterfaceLayout->children[]	= $InterfaceHeader 	= new renderable('ul','',	array('classes'=>array('HeaderLayout','controls')));
-		$InterfaceLayout->children[]	= $InterfaceContent	= new renderable('ul','',	array('classes'=>array('ContentLayout','controls')));
-		$InterfaceLayout->children[]	= $InterfaceFooter	= new renderable('ul','',	array('classes'=>array('FooterLayout','controls')));
+		$this->Layout->children[]	= $this->Header 	= new renderable('ul','',	array('classes'=>array('Header','controls')));
+		$this->Layout->children[]	= $this->Content	= new renderable('ul','',	array('classes'=>array('Content','controls')));
+		$this->Layout->children[]	= $this->Footer	= new renderable('ul','',	array('classes'=>array('Footer','controls')));
 
-		$InterfaceHeader->children[]	= $InterfaceTitlebar	= new renderable('li','',	array('classes'=>array('Header','controls'),'content'=>'Complete action by following steps.'));
+		$this->Header->children[]	= $this->Titlebar	= new renderable('li','',	array('classes'=>array('Titlebar'),'content'=>'Complete action by following steps.'));
+	}
+}
 
-		$InterfaceFooter->children[]	= $CancelButton		= new renderable('li','',	array('classes'=>array('Cancel',	'DarkRed',		'Button'),'content'=>'Cancel'));
-		$InterfaceFooter->children[]	= $BackButton		= new renderable('li','',	array('classes'=>array('Back',	'DarkGreen',	'Button'),'content'=>'Back'));
-		$InterfaceFooter->children[]	= $NextButton		= new renderable('li','',	array('classes'=>array('Next',		'DarkGreen',	'Button'),'content'=>'Next'));
-		$InterfaceFooter->children[]	= $FinishButton		= new renderable('li','',	array('classes'=>array('Finish',	'DarkBlue',		'Button'),'content'=>'Finish'));
+class Wizard extends UserInterface
+{
+	public $Slides;
+	public $CancelButton;
+	public $BackButton;
+	public $NextButton;
+	public $FinishButton;
+	
+	Wizard()
+	{
+		$this->classes[]		= 'Wizard';
+		
+		$Footer->children[]	= $CancelButton		= new renderable('li','',	array('classes'=>array('Cancel',	'DarkRed',		'Button'),'content'=>'Cancel'));
+		$Footer->children[]	= $BackButton		= new renderable('li','',	array('classes'=>array('Back',	'DarkGreen',	'Button'),'content'=>'Back'));
+		$Footer->children[]	= $NextButton		= new renderable('li','',	array('classes'=>array('Next',		'DarkGreen',	'Button'),'content'=>'Next'));
+		$Footer->children[]	= $FinishButton		= new renderable('li','',	array('classes'=>array('Finish',	'DarkBlue',		'Button'),'content'=>'Finish'));
 
 		$FinishButton->attributes['data-intent']='Autoform Insert ACTION';
 	}
 }
 
-$ApproachDisplayUnit['Publication']['NewWizard'] = new WizardInterface();
+$ApproachDisplayUnit['Publication']['NewWizard'] = new Wizard();
 
 ?>
