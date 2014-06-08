@@ -1,6 +1,6 @@
 #include "RenderXML.h"
 
-using model::XML;
+using namespace Approach::Renderable;
 using namespace std;
 /*
 //Comment | Uncomment for collision control with std
@@ -16,8 +16,6 @@ string to_string(unsigned int number);
 
 int main()
 {
-//    std::ofstream outfile ("new.xml",std::ofstream::out);
-
 	string tag="li",id="NavigationArea";
 	map<string,string> attr;
 	vector<string> classlist;
@@ -68,10 +66,10 @@ int main()
 
 	Content.content="this is a test of the thing";
 
-
-	cout<<"<!DOCTYPE html>"<<endl<<html;
-
-//	cout.close();
+	cout<<"<!DOCTYPE html>"<<html;
+    //ofstream outfile ("new.xml",std::ofstream::out);
+	//outfile<<"<!DOCTYPE html>"<<html;
+	//outfile.close();
 
 	return 0;
 }
